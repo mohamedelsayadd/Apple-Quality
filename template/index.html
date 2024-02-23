@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Quality Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Apple Quality Prediction</h1>
+        <div class="form">
+            <label for="size">Size:</label>
+            <input type="number" id="size">
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight">
+            <label for="sweetness">Sweetness:</label>
+            <input type="number" id="sweetness">
+            <label for="crunchiness">Crunchiness:</label>
+            <input type="number" id="crunchiness">
+            <label for="juiciness">Juiciness:</label>
+            <input type="number" id="juiciness">
+            <label for="ripeness">Ripeness:</label>
+            <input type="number" id="ripeness">
+            <label for="acidity">Acidity:</label>
+            <input type="number" id="acidity">
+            <button onclick="predict()">Predict Quality</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Quality Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Apple Quality Prediction</h1>
+    <form id="predictionForm">
+        <label for="size">Size:</label>
+        <input type="text" id="size" name="Size" required>
+        <label for="weight">Weight:</label>
+        <input type="text" id="weight" name="Weight" required>
+        <label for="sweetness">Sweetness:</label>
+        <input type="text" id="sweetness" name="Sweetness" required>
+        <label for="crunchiness">Crunchiness:</label>
+        <input type="text" id="crunchiness" name="Crunchiness" required>
+        <label for="juiciness">Juiciness:</label>
+        <input type="text" id="juiciness" name="Juiciness" required>
+        <label for="ripeness">Ripeness:</label>
+        <input type="text" id="ripeness" name="Ripeness" required>
+        <label for="acidity">Acidity:</label>
+        <input type="text" id="acidity" name="Acidity" required>
+        <button type="submit">Predict</button>
+    </form>
+    <h2 id="predictionResult"></h2>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Get the input values
+            var sizeValue = parseFloat(document.getElementById('size').value);
+            var weightValue = parseFloat(document.getElementById('weight').value);
+            var sweetnessValue = parseFloat(document.getElementById('sweetness').value);
+            var crunchinessValue = parseFloat(document.getElementById('crunchiness').value);
+            var juicinessValue = parseFloat(document.getElementById('juiciness').value);
+            var ripenessValue = parseFloat(document.getElementById('ripeness').value);
+            var acidityValue = parseFloat(document.getElementById('acidity').value);
+            
+            // Make a POST request to the Flask server
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Size: sizeValue,
+                    Weight: weightValue,
+                    Sweetness: sweetnessValue,
+                    Crunchiness: crunchinessValue,
+                    Juiciness: juicinessValue,
+                    Ripeness: ripenessValue,
+                    Acidity: acidityValue
+                })
+            })
+            .then(response => response.text())
+            .then(prediction => {
+                document.getElementById('predictionResult').textContent = "Prediction Result: " + prediction;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
